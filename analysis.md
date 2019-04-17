@@ -34,6 +34,7 @@
     - Parse file
         - validate files exists
         - validate is parsable
+        - parse file
     - parse orders to bonus packs
         - validate have orders
         - validate only one chocolate type

@@ -1,0 +1,13 @@
+#!/usr/bin/env node
+'use strict';
+
+try {
+    console.log(`Starting order processing...`);
+    
+    console.log(`Processing finished`);
+    process.exit(0);
+} catch (e) {
+    console.error(`Error processing orders!`);
+    console.error(e);
+    process.exit(1);
+}
