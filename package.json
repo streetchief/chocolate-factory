@@ -4,7 +4,7 @@
   "description": "Stride Coding Challenge",
   "main": "index.js",
   "scripts": {
-    "build": "./node_modules/.bin/babel src --out-dir lib",
+    "build": "npx babel src --extensions '.ts' --out-dir lib",
     "start": "node process-orders",
     "test": "jest"
   },
@@ -15,6 +15,7 @@
   "author": "",
   "license": "ISC",
   "devDependencies": {
+    "@babel/cli": "^7.4.3",
     "@babel/core": "^7.4.3",
     "@babel/preset-env": "^7.4.3",
     "@babel/preset-typescript": "^7.3.3",

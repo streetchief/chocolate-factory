@@ -1,4 +1,3 @@
-// Import Types
 import { Options, ChocolateCounts, } from './index.d';
 
 /* Factory function to instantiate and Order Processing object */

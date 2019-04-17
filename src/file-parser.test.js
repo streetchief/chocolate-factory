@@ -1,10 +1,10 @@
-import FileParser from "./file-parser";
+import FileParserFactory from "./file-parser";
 
 describe("File Parser module", () => {
   it("should be a factory function", () => {
-    expect(FileParser).toBeDefined();
-    expect(typeof FileParser).toEqual("function");
-    expect(FileParser).not.toThrow();
+    expect(FileParserFactory).toBeDefined();
+    expect(typeof FileParserFactory).toEqual("function");
+    expect(FileParserFactory).not.toThrow();
   });
 
   describe(`its methods`, () => {
@@ -12,7 +12,7 @@ describe("File Parser module", () => {
     const samplePath = `samples/orders_1_mac.csv`;
 
     beforeAll(() => {
-      parser = FileParser();
+      parser = FileParserFactory();
     });
 
     describe("file checking validator", () => {
@@ -32,12 +32,14 @@ describe("File Parser module", () => {
       });
     });
 
-    xit("should have a validator to check if xlsx can parse the file", () => {
-      expect(typeof parser.isParseable).toEqual("function");
-    });
-
-    xit("should have a parse function", () => {
-      expect(typeof parser.parseCSV).toEqual("function");
+    describe(`parser`, () => {
+      it("should be able to parse CSV files", () => {
+        expect(typeof parser.parseCSV).toEqual("function");
+        const toString = Object.prototype.toString;
+        const orders = parser.parseCSV(samplePath);
+        expect(Array.isArray(orders)).toBe(true);
+        expect(orders.length).toEqual(3);
+      });
     });
   });
 });

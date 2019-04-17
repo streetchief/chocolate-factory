@@ -1,3 +1,8 @@
+export interface FileParser {
+    fileExists(pathFragment: string): Promise<Error>;
+    parseCSV(pathFragment: string): CustomerOrder[];
+}
+
 /* Order Processing configuration object */
 export interface Options {
     chocolateTypes: {
@@ -15,9 +20,9 @@ type BonusCalculator = (c: ChocolateCounts) => ChocolateCounts;
 /* Custom order parsed from a CSV */
 export interface CustomerOrder {
     type: string,
+    cash: number,
     price: number,
-    cost: number,
-    bonus: number,
+    bonusRatio: number,
 }
 
 /* Map of chocolate types to their counts for a final order */
