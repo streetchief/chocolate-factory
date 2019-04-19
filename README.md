@@ -32,19 +32,22 @@ Jest will compile and run the TypeScript files automatically via Babel.
 - [Babel](https://babeljs.io/): Compile Typescript for Jest tests
 - [Rollup](https://rollupjs.org/guide/en) - Import and merge all modules required for building a single file module.
 
-## Issues/Notes/Optimizations
+## Issues
 - TypeScript error in `calculator.ts`
 - No ESLint so we are missing some consistency in spacing, string identifiers, etc.
-- Parsing a CSV during testing might be excessively time consuming.
-- XLSX supports streams if needed for future optimizations
+
+## Notes/Optimizations
+- Parsing a CSV during testing might be excessively time consuming, especially with a larger sample.
+- XLSX supports streams if needed for future optimizations.
 - bonusPackQuantity and purchaseQuantity use the same operation, could be abstracted.
-- Need to add some tests for error handling, esp. in index.ts
 
 ## Backlog
 - Add ESlint config.
 - Add environmental config support.
 - Support fully featured logging with configurations and convert `console` calls to use logger.
 - Bonus rules should take a config and build functions instead of functions directly.
+- File Parser could take config for path and sheet headers.
+- Need to add some tests for error handling, esp. in index.ts
 
 ## Final Thoughts
-Thanks!
+Thanks for taking the time to look over this module, I hope you found it interesting!
