@@ -4,6 +4,7 @@ import { FileParserFactory } from './file-parser';
 // OrderProcessor().processOrders();
 
 /* Factory function to instantiate an Order Processing object */
+// module.exports = function OrderProcessor(options?: Options) {
 export function OrderProcessor(options?: Options) {
     const defaults: Options = {
         chocolateTypes: {
@@ -12,9 +13,19 @@ export function OrderProcessor(options?: Options) {
             white: 'white',
         },
         bonusRules: {
-            milk: (c: number) => ({}),
-            dark: (c: number) => ({}),
-            white: (c: number) => ({}),
+            milk: (packs: number, counter: ChocolateCounts) => {
+                counter.milk += packs;
+                return counter;
+            },
+            dark: (packs: number, counter: ChocolateCounts) => {
+                counter.dark += (packs * 2);
+                return counter;
+            },
+            white: (packs: number, counter: ChocolateCounts) => {
+                counter.white += packs;
+                counter.milk += packs;
+                return counter;
+            },
         },
         orderPath: 'input/orders.csv',
         outputProcessing: () => {},
@@ -25,9 +36,11 @@ export function OrderProcessor(options?: Options) {
     
     return {
         processOrders: async () => {
+            console.log('Processing orders...');
             try {
                 await FileParser.fileExists(config.orderPath);
                 const orders = FileParser.parseCSV(config.orderPath);
+                console.log('order', orders)
                 // calculate order
                 // output results
             } catch (e) {

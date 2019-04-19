@@ -4,12 +4,14 @@ export interface FileParser {
 }
 
 export interface CalculatorConfig {
-    chocolateTypes: {
-        [type: string]: string;
-    },
+    chocolateTypes: ChocolateTypes;
     bonusRules: {
-        [type: string]: BonusCalculator,
-    },
+        [type: string]: BonusCalculator;
+    };
+}
+
+export interface ChocolateTypes {
+    [type: string]: string;
 }
 
 export interface Calculator {
@@ -19,23 +21,21 @@ export interface Calculator {
     purchaseQuantity(cash: number, costPerChocolate: number): number;
     bonusPackQuantity(choclates: number, ratio: number): number;
     getChocolateCounter(): ChocolateCounts;
-    calculateBonusChocolates(type: string, purchased: number, rule: BonusCalculator): ChocolateCounts
+    calculateBonusChocolates(type: keyof ChocolateTypes, purchased: number): ChocolateCounts;
     calculateOrderWithBonus(order: CustomerOrder): ChocolateCounts;
 }
 
 /* Order Processing configuration object */
 export interface Options {
-    chocolateTypes: {
-        [type: string]: string;
-    },
+    chocolateTypes: ChocolateTypes;
     bonusRules: {
-        [type: string]: BonusCalculator,
-    },
-    orderPath: string,
-    outputProcessing(): any,
+        [type: string]: BonusCalculator;
+    };
+    orderPath: string;
+    outputProcessing(): any;
 }
 
-type BonusCalculator = (c: ChocolateCounts) => ChocolateCounts;
+type BonusCalculator = (n: number, c: ChocolateCounts) => ChocolateCounts;
 
 /* Custom order parsed from a CSV */
 export interface CustomerOrder {
@@ -46,6 +46,6 @@ export interface CustomerOrder {
 }
 
 /* Map of chocolate types to their counts for a final order */
-export interface ChocolateCounts {
-    [type: string]: number;
+export type ChocolateCounts = {
+    [type in keyof ChocolateTypes]: number;
 }

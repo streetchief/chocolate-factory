@@ -1,5 +1,10 @@
 import { CalculatorFactory } from "./calculator";
-import { CalculatorConfig, Calculator, CustomerOrder } from "./index.d";
+import { 
+  BonusCalculator,
+  CalculatorConfig, 
+  Calculator, 
+  CustomerOrder,
+ } from "./index.d";
 
 let calculator: Calculator;
 let config: CalculatorConfig;
@@ -8,9 +13,15 @@ beforeAll(() => {
     chocolateTypes: {
       milk: "milk",
       dark: "dark",
-      white: "white"
+      white: "white",
+      strawberry: "strawberry"
     },
-    bonusRules: {}
+    bonusRules: {
+      strawberry: (packs, counter) => {
+        counter.strawberry += (packs * 3);
+        return counter
+      },
+    }
   };
 
   calculator = CalculatorFactory(config);
@@ -93,8 +104,10 @@ describe("The calculator module", () => {
     });
   });
 
-  //   xit('should calculate the total number of chocolates based on the bonus packs', () => {
-  //     expect(typeof calculator.calculateBonusChocolates).toBe('function');
-  //     expect(calculator.calculateBonusChocolates.length).toEqual(3);
-  //   });
+    it('should calculate the total number of chocolates based on the bonus packs', () => {
+      expect(typeof calculator.calculateBonusChocolates).toBe('function');
+      expect(calculator.calculateBonusChocolates.length).toEqual(2);     
+      const bonuses = calculator.calculateBonusChocolates('strawberry', 2);
+      expect(bonuses.strawberry).toEqual(6);
+    });
 });

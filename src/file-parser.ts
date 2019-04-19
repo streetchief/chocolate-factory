@@ -2,8 +2,12 @@ import * as path from "path";
 import * as fs from "fs";
 import * as xlsx from "xlsx";
 import { FileParser } from "./index.d";
+// const path = require('path');
+// const fs = require('fs');
+// const xlsx = require('xlsx');
 
 /* File Parsing module */
+// module.exports = function FileParserFactory(): FileParser {
 export function FileParserFactory(): FileParser {
   let resolved: string = ``;
   const getDir = (pathFragment = ``) => {

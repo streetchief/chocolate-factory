@@ -1,4 +1,5 @@
 import { FileParserFactory } from "./file-parser";
+import { FileParser } from './index.d';
 
 describe("File Parser module", () => {
   it("should be a factory function", () => {
@@ -8,8 +9,8 @@ describe("File Parser module", () => {
   });
 
   describe(`its methods`, () => {
-    let parser;
-    const samplePath = `samples/orders_1_mac.csv`;
+    let parser: FileParser;
+    const orders1SamplePath = `samples/orders_1_mac.csv`;
 
     beforeAll(() => {
       parser = FileParserFactory();
@@ -22,7 +23,7 @@ describe("File Parser module", () => {
 
       it("should have file checking validator", async () => {
         expect.assertions(1);
-        const noError = await parser.fileExists(samplePath);
+        const noError = await parser.fileExists(orders1SamplePath);
         expect(noError).toBeUndefined();
       });
 
@@ -35,9 +36,14 @@ describe("File Parser module", () => {
     describe(`parser`, () => {
       it("should be able to parse CSV files", () => {
         expect(typeof parser.parseCSV).toEqual("function");
-        const orders = parser.parseCSV(samplePath);
+        const orders = parser.parseCSV(orders1SamplePath);
         expect(Array.isArray(orders)).toBe(true);
         expect(orders.length).toEqual(3);
+        const firstOrder = orders[0];
+        expect(firstOrder.type).toBe('milk');
+        expect(firstOrder.cash).toEqual(12);
+        expect(firstOrder.price).toEqual(2);
+        expect(firstOrder.bonusRatio).toEqual(5);
       });
     });
   });
