@@ -2,7 +2,6 @@ import {
     Calculator,
     CalculatorConfig,
     ChocolateCounts,
-    CustomerOrder, 
 } from "./index.d";
 
 // module.exports = function CalculatorFactory(config: CalculatorConfig): Calculator {
@@ -18,7 +17,7 @@ export function CalculatorFactory(config: CalculatorConfig): Calculator {
         },
         haveOrders: (orders) => Array.isArray(orders) && orders.length > 0,
         isValidChocolateType: (type) => !!config.chocolateTypes[type],
-        isSafeInt: (int) => Number.isSafeInteger(int) && int > 0,
+        isUseableInt: (int) => Number.isSafeInteger(int) && int > 0,
         purchaseQuantity: (price, cost) => Math.floor(price / cost),
         bonusPackQuantity: (choclates, ratio) => Math.floor(choclates / ratio),
         calculateBonusChocolates: (type, packs) => {
@@ -34,8 +33,8 @@ export function CalculatorFactory(config: CalculatorConfig): Calculator {
             return orders.reduce((all, order) => {
                 if (
                     !calc.isValidChocolateType(order.type)
-                    || !calc.isSafeInt(order.cash) // paid zero (or negative)
-                    || !calc.isSafeInt(order.price) // chocolate cost 0 (or less)
+                    || !calc.isUseableInt(order.cash) // paid zero (or negative)
+                    || !calc.isUseableInt(order.price) // chocolate cost 0 (or less)
                 ) {
                     return all;
                 }
@@ -44,7 +43,7 @@ export function CalculatorFactory(config: CalculatorConfig): Calculator {
                 
                 // Assuming ratio below 1 means no bonuses
                 let bonusChocolates: ChocolateCounts;
-                if (calc.isSafeInt(order.bonusRatio)) {
+                if (calc.isUseableInt(order.bonusRatio)) {
                     const bonusPacks = calc.bonusPackQuantity(purchasedQuantity, order.bonusRatio);
                     bonusChocolates = calc.calculateBonusChocolates(order.type, bonusPacks);
                 }

@@ -66,13 +66,13 @@ describe("The calculator module", () => {
     });
 
     it("check an integer is safe for transaction calculations", () => {
-      expect(typeof calculator.isSafeInt).toBe("function");
-      expect(calculator.isSafeInt.length).toEqual(1);
-      expect(calculator.isSafeInt(-1)).toBe(false);
-      expect(calculator.isSafeInt(NaN)).toBe(false);
-      expect(calculator.isSafeInt(Number.POSITIVE_INFINITY)).toBe(false);
-      expect(calculator.isSafeInt(0)).toBe(false);
-      expect(calculator.isSafeInt(1000)).toBe(true);
+      expect(typeof calculator.isUseableInt).toBe("function");
+      expect(calculator.isUseableInt.length).toEqual(1);
+      expect(calculator.isUseableInt(-1)).toBe(false);
+      expect(calculator.isUseableInt(NaN)).toBe(false);
+      expect(calculator.isUseableInt(Number.POSITIVE_INFINITY)).toBe(false);
+      expect(calculator.isUseableInt(0)).toBe(false);
+      expect(calculator.isUseableInt(1000)).toBe(true);
     });
   });
 
@@ -142,7 +142,6 @@ describe("The calculator module", () => {
     ];
     
     const processed = calculator.calculateAllOrders(orders);
-    console.log('processed', processed);
     expect(processed.length).toEqual(3);
     const firstOrder = processed[0];
     expect(firstOrder.milk).toEqual(7);

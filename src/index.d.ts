@@ -21,7 +21,7 @@ export interface ChocolateTypes {
 export interface Calculator {
     haveOrders(orders: CustomerOrder[]): boolean;
     isValidChocolateType(type: string): boolean;
-    isSafeInt(int: number): boolean;
+    isUseableInt(int: number): boolean;
     purchaseQuantity(cash: number, costPerChocolate: number): number;
     bonusPackQuantity(choclates: number, ratio: number): number;
     getChocolateCounter(): ChocolateCounts;
