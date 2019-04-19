@@ -9,10 +9,8 @@ import { FileParser } from "./index.d";
 /* File Parsing module */
 // module.exports = function FileParserFactory(): FileParser {
 export function FileParserFactory(): FileParser {
-  let resolved: string = ``;
   const getDir = (pathFragment = ``) => {
-    resolved = path.resolve(pathFragment);
-    return resolved;
+    return path.resolve(pathFragment);
   };
 
   return {

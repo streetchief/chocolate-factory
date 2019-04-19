@@ -1,5 +1,6 @@
 import { Options, ChocolateCounts, } from './index.d';
 import { FileParserFactory } from './file-parser';
+import { CalculatorFactory } from './calculator';
 
 // OrderProcessor().processOrders();
 
@@ -28,23 +29,36 @@ export function OrderProcessor(options?: Options) {
             },
         },
         orderPath: 'input/orders.csv',
-        outputProcessing: () => {},
     };
     
     const config: Options = Object.assign({}, defaults, options);
-    const FileParser = FileParserFactory();
+    const fileParser = FileParserFactory();
+    const calculator = CalculatorFactory({ 
+        chocolateTypes: config.chocolateTypes,
+        bonusRules: config.bonusRules,
+    });
     
     return {
         processOrders: async () => {
-            console.log('Processing orders...');
             try {
-                await FileParser.fileExists(config.orderPath);
-                const orders = FileParser.parseCSV(config.orderPath);
-                console.log('order', orders)
-                // calculate order
-                // output results
+                await fileParser.fileExists(config.orderPath);
+                const orders = fileParser.parseCSV(config.orderPath);
+                if (orders.length === 0) {
+                    console.log(`No orders parsed from file`);
+                    return;
+                }
+                
+                const successfulOrders = calculator.calculateAllOrders(orders);
+                if (successfulOrders.length === 0) {
+                    console.log(`No successful orders created`);
+                    return;
+                }
+                
+                successfulOrders.forEach(order => {
+                    console.log(`milk ${order.milk},dark ${order.dark},white ${order.white}`);
+                });
             } catch (e) {
-                console.log(`Error calculating orders with bonuses`);
+                console.log(`Error calculating orders, exiting...`);
                 console.log(`Message: ${e.message}`);
             }
         },

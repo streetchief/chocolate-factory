@@ -1,13 +1,14 @@
 import { CalculatorFactory } from "./calculator";
-import { 
-  BonusCalculator,
-  CalculatorConfig, 
-  Calculator, 
+import {
+  CalculatorConfig,
+  Calculator,
   CustomerOrder,
- } from "./index.d";
+  ChocolateCounts
+} from "./index.d";
 
 let calculator: Calculator;
 let config: CalculatorConfig;
+
 beforeAll(() => {
   config = {
     chocolateTypes: {
@@ -18,9 +19,22 @@ beforeAll(() => {
     },
     bonusRules: {
       strawberry: (packs, counter) => {
-        counter.strawberry += (packs * 3);
-        return counter
+        counter.strawberry += packs * 3;
+        return counter;
       },
+      milk: (packs: number, counter: ChocolateCounts) => {
+        counter.milk += packs;
+        return counter;
+      },
+      dark: (packs: number, counter: ChocolateCounts) => {
+        counter.dark += packs * 2;
+        return counter;
+      },
+      white: (packs: number, counter: ChocolateCounts) => {
+        counter.white += packs;
+        counter.milk += packs;
+        return counter;
+      }
     }
   };
 
@@ -45,14 +59,10 @@ describe("The calculator module", () => {
     it("check if a given chocolate type is valid", () => {
       expect(typeof calculator.isValidChocolateType).toBe("function");
       expect(calculator.isValidChocolateType.length).toEqual(1);
-      const supportsConfiguredTypes = Object.keys(config.chocolateTypes).every(
-        calculator.isValidChocolateType
-      );
-
+      const supportsConfiguredTypes = Object.keys(config.chocolateTypes)
+        .every(calculator.isValidChocolateType);
       expect(supportsConfiguredTypes).toBe(true);
-      expect(
-        calculator.isValidChocolateType("definitely-not-a-chocolate")
-      ).toBe(false);
+      expect(calculator.isValidChocolateType("definitely-not-a-chocolate")).toBe(false);
     });
 
     it("check an integer is safe for transaction calculations", () => {
@@ -91,9 +101,8 @@ describe("The calculator module", () => {
 
     it("should have the same chocolate types as the configuration", () => {
       const counter = calculator.getChocolateCounter();
-      const haveConfigKeys = Object.keys(config.chocolateTypes).every(
-        Object.prototype.hasOwnProperty.bind(counter)
-      );
+      const haveConfigKeys = Object.keys(config.chocolateTypes)
+        .every(Object.prototype.hasOwnProperty.bind(counter));
       expect(haveConfigKeys).toEqual(true);
     });
 
@@ -104,17 +113,40 @@ describe("The calculator module", () => {
     });
   });
 
-    it('should calculate the total number of chocolates based on the bonus packs', () => {
-      expect(typeof calculator.calculateBonusChocolates).toBe('function');
-      expect(calculator.calculateBonusChocolates.length).toEqual(2);     
-      const bonuses = calculator.calculateBonusChocolates('strawberry', 2);
-      expect(bonuses.strawberry).toEqual(6);
-    });
+  it("should calculate the total number of chocolates based on the bonus packs", () => {
+    expect(typeof calculator.calculateBonusChocolates).toBe("function");
+    expect(calculator.calculateBonusChocolates.length).toEqual(2);
+    const bonuses = calculator.calculateBonusChocolates("strawberry", 2);
+    expect(bonuses.strawberry).toEqual(6);
+  });
+
+  it(`should calculate a total number of chocolates`, () => {
+    expect(typeof calculator.calculateOrderWithBonus).toBe("function");
+    const bonusCounter = { strawberry: 5 };
+    const totalCount = calculator.calculateOrderWithBonus(
+      "strawberry",
+      2,
+      bonusCounter
+    );
     
-    it(`should calculate a total number of chocolates`, () => {
-      expect(typeof calculator.calculateOrderWithBonus).toBe('function');
-      const bonusCounter = { strawberry: 5 };
-      const totalCount = calculator.calculateOrderWithBonus('strawberry', 2, bonusCounter);
-      expect(totalCount.strawberry).toEqual(7);
-    });
+    expect(totalCount.strawberry).toEqual(7);
+  });
+
+  it(`should calculate all orders`, () => {
+    expect(typeof calculator.calculateAllOrders).toBe("function");
+    delete config.chocolateTypes.strawberry;
+    const orders = [
+      { type: "milk", cash: 12, price: 2, bonusRatio: 5 },
+      { type: "dark", cash: 13, price: 4, bonusRatio: 1 },
+      { type: "white", cash: 6, price: 2, bonusRatio: 2 }
+    ];
+    
+    const processed = calculator.calculateAllOrders(orders);
+    console.log('processed', processed);
+    expect(processed.length).toEqual(3);
+    const firstOrder = processed[0];
+    expect(firstOrder.milk).toEqual(7);
+    expect(firstOrder.dark).toEqual(0);
+    expect(firstOrder.white).toEqual(0);
+  });
 });
