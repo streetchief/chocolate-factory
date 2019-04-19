@@ -110,4 +110,11 @@ describe("The calculator module", () => {
       const bonuses = calculator.calculateBonusChocolates('strawberry', 2);
       expect(bonuses.strawberry).toEqual(6);
     });
+    
+    it(`should calculate a total number of chocolates`, () => {
+      expect(typeof calculator.calculateOrderWithBonus).toBe('function');
+      const bonusCounter = { strawberry: 5 };
+      const totalCount = calculator.calculateOrderWithBonus('strawberry', 2, bonusCounter);
+      expect(totalCount.strawberry).toEqual(7);
+    });
 });

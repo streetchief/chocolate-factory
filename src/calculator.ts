@@ -27,8 +27,9 @@ export function CalculatorFactory(config: CalculatorConfig): Calculator {
             const bonusRule = config.bonusRules[type];
             return bonusRule(packs, getChocolateCounter());
         },
-        calculateOrderWithBonus: () => {
-            
+        calculateOrderWithBonus: (type, purchaseCount, bonusCounts) => {
+            bonusCounts[type] += purchaseCount;
+            return bonusCounts;
         },
     };
 }

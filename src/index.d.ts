@@ -22,7 +22,7 @@ export interface Calculator {
     bonusPackQuantity(choclates: number, ratio: number): number;
     getChocolateCounter(): ChocolateCounts;
     calculateBonusChocolates(type: keyof ChocolateTypes, purchased: number): ChocolateCounts;
-    calculateOrderWithBonus(order: CustomerOrder): ChocolateCounts;
+    calculateOrderWithBonus(type: keyof ChocolateTypes, purchaseQuantity: number, bonuses: ChocolateCounts): ChocolateCounts;
 }
 
 /* Order Processing configuration object */
