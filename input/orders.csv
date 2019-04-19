@@ -2,3 +2,5 @@ type,cash,price,bonus_ratio
 "milk",12,2,5
 "dark",13,4,1
 "white",6,2,2
+"dark",300,1,2
+"white",300,1,2

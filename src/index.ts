@@ -1,12 +1,9 @@
 import { Options, ChocolateCounts, } from './index.d';
-import { FileParserFactory } from './file-parser';
-import { CalculatorFactory } from './calculator';
-
-// OrderProcessor().processOrders();
+import FileParserFactory from './file-parser';
+import CalculatorFactory from './calculator';
 
 /* Factory function to instantiate an Order Processing object */
-// module.exports = function OrderProcessor(options?: Options) {
-export function OrderProcessor(options?: Options) {
+export default function OrderProcessor(options?: Options) {
     const defaults: Options = {
         chocolateTypes: {
             milk: 'milk',

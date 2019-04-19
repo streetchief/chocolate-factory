@@ -5,7 +5,7 @@ import {
 } from "./index.d";
 
 // module.exports = function CalculatorFactory(config: CalculatorConfig): Calculator {
-export function CalculatorFactory(config: CalculatorConfig): Calculator {
+export default function CalculatorFactory(config: CalculatorConfig): Calculator {
     if (!config) throw new TypeError(`CalculatorFactory config was undefined`);
     
     const calc: Calculator = {
@@ -13,7 +13,7 @@ export function CalculatorFactory(config: CalculatorConfig): Calculator {
             return Object.keys(config.chocolateTypes).reduce((counter, type) => {
                 counter[type] = 0;
                 return counter;
-            }, {});
+            }, {} as ChocolateCounts);
         },
         haveOrders: (orders) => Array.isArray(orders) && orders.length > 0,
         isValidChocolateType: (type) => !!config.chocolateTypes[type],

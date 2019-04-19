@@ -1,4 +1,4 @@
-import { CalculatorFactory } from "./calculator";
+import CalculatorFactory from "./calculator";
 import {
   CalculatorConfig,
   Calculator,

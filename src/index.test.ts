@@ -1,5 +1,5 @@
 "use strict";
-import { OrderProcessor } from './index';
+import OrderProcessor from './index';
 
 describe("Order Processor module", () => {
   it("should be a function that takes an options object", () => {

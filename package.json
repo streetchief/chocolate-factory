@@ -1,30 +1,30 @@
 {
-  "name": "stride-cc",
+  "name": "stride-coding-challenge",
   "version": "1.0.0",
-  "description": "Stride Coding Challenge",
-  "main": "index.js",
-  "scripts": {
-    "build": "npx babel src --extensions '.ts' --out-dir lib",
-    "start": "node process-orders",
-    "test": "jest"
+  "main": "dist/process-orders.cjs.js",
+  "dependencies": {
+    "xlsx": "^0.14.2"
   },
-  "repository": {
-    "type": "git",
-    "url": ""
-  },
-  "author": "",
-  "license": "ISC",
   "devDependencies": {
-    "@babel/cli": "^7.4.3",
     "@babel/core": "^7.4.3",
     "@babel/preset-env": "^7.4.3",
     "@babel/preset-typescript": "^7.3.3",
     "@types/jest": "^24.0.11",
     "@types/node": "^11.13.4",
     "babel-jest": "^24.7.1",
-    "jest": "^24.7.1"
+    "jest": "^24.7.1",
+    "rollup": "^1.10.0",
+    "rollup-plugin-typescript": "^1.0.0",
+    "tslib": "^1.9.3",
+    "typescript": "^3.2.2"
   },
-  "dependencies": {
-    "xlsx": "^0.14.2"
-  }
+  "scripts": {
+    "build": "rollup -c",
+    "dev": "rollup -c -w",
+    "test": "jest",
+    "start": "node run"
+  },
+  "files": [
+    "dist"
+  ]
 }

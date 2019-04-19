@@ -1,4 +1,4 @@
-import { FileParserFactory } from "./file-parser";
+import FileParserFactory from "./file-parser";
 import { FileParser } from './index.d';
 
 describe("File Parser module", () => {
