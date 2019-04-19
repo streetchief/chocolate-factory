@@ -33,7 +33,7 @@ Jest will compile and run the TypeScript files automatically via Babel.
 - [Rollup](https://rollupjs.org/guide/en) - Import and merge all modules required for building a single file module.
 
 ## Issues
-- TypeScript error in `calculator.ts`
+- TypeScript error in `calculator.ts`, but it should not cause application errors.
 - No ESLint so we are missing some consistency in spacing, string identifiers, etc.
 - Parsing a CSV is an order of magnitude longer than most of the other tests, and might be excessively long, especially with a larger file.
 
