@@ -1,7 +1,10 @@
 import { Options, ChocolateCounts, } from './index.d';
+import { FileParserFactory } from './file-parser';
 
-/* Factory function to instantiate and Order Processing object */
-export default function OrderProcessor(options: Options) {
+// OrderProcessor().processOrders();
+
+/* Factory function to instantiate an Order Processing object */
+export function OrderProcessor(options?: Options) {
     const defaults: Options = {
         chocolateTypes: {
             milk: 'milk',
@@ -9,22 +12,28 @@ export default function OrderProcessor(options: Options) {
             white: 'white',
         },
         bonusRules: {
-            milk: (c: ChocolateCounts) => ({}),
-            dark: (c: ChocolateCounts) => ({}),
-            white: (c: ChocolateCounts) => ({}),
+            milk: (c: number) => ({}),
+            dark: (c: number) => ({}),
+            white: (c: number) => ({}),
         },
         orderPath: 'input/orders.csv',
         outputProcessing: () => {},
     };
     
-    // TODO: Switch to lodash extend or some method to avoid overwriting references in the options object.
     const config: Options = Object.assign({}, defaults, options);
+    const FileParser = FileParserFactory();
     
     return {
-        processOrders: () => {
-            // parse file
-            // calculate order
-            // output results
+        processOrders: async () => {
+            try {
+                await FileParser.fileExists(config.orderPath);
+                const orders = FileParser.parseCSV(config.orderPath);
+                // calculate order
+                // output results
+            } catch (e) {
+                console.log(`Error calculating orders with bonuses`);
+                console.log(`Message: ${e.message}`);
+            }
         },
     };
 }

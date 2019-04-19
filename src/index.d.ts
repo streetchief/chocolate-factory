@@ -3,6 +3,26 @@ export interface FileParser {
     parseCSV(pathFragment: string): CustomerOrder[];
 }
 
+export interface CalculatorConfig {
+    chocolateTypes: {
+        [type: string]: string;
+    },
+    bonusRules: {
+        [type: string]: BonusCalculator,
+    },
+}
+
+export interface Calculator {
+    haveOrders(orders: CustomerOrder[]): boolean;
+    isValidChocolateType(type: string): boolean;
+    isSafeInt(int: number): boolean;
+    purchaseQuantity(cash: number, costPerChocolate: number): number;
+    bonusPackQuantity(choclates: number, ratio: number): number;
+    getChocolateCounter(): ChocolateCounts;
+    calculateBonusChocolates(type: string, purchased: number, rule: BonusCalculator): ChocolateCounts
+    calculateOrderWithBonus(order: CustomerOrder): ChocolateCounts;
+}
+
 /* Order Processing configuration object */
 export interface Options {
     chocolateTypes: {
