@@ -35,9 +35,9 @@ Jest will compile and run the TypeScript files automatically via Babel.
 ## Issues
 - TypeScript error in `calculator.ts`
 - No ESLint so we are missing some consistency in spacing, string identifiers, etc.
+- Parsing a CSV is an order of magnitude longer than most of the other tests, and might be excessively long, especially with a larger file.
 
 ## Notes/Optimizations
-- Parsing a CSV during testing might be excessively time consuming, especially with a larger sample.
 - XLSX supports streams if needed for future optimizations; batching is also a possibility.
 - bonusPackQuantity and purchaseQuantity use the same operation, could be abstracted.
 
