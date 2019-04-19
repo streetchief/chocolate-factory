@@ -24,11 +24,11 @@ Jest will compile and run the TypeScript files automatically via Babel.
  - Unfortunately, there is currently no association between orders in and orders out.  No tracking of any funds that go unused.  The simplicity of the system allows for rapid testing, but there is a lot of lost information, and money, directly, or through order confusion.
  
 ## Dependencies
-- [XLSX](https://docs.sheetjs.com/#json) - Parse CSV files
+- [XLSX](https://docs.sheetjs.com/#json) - Parse CSV files into JS objects
 
 ### Dev dependencies
 - [TypeScript](https://www.typescriptlang.org/) - Type safety, and much, much more.
-- [Jest](https://jestjs.io/docs/en): Automated testing and coverage framework.
+- [Jest](https://jestjs.io/): Automated testing and coverage framework.
 - [Babel](https://babeljs.io/): Compile Typescript for Jest tests
 - [Rollup](https://rollupjs.org/guide/en) - Import and merge all modules required for building a single file module.
 
