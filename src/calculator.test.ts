@@ -92,7 +92,7 @@ describe("The calculator module", () => {
     expect(calculator.bonusPackQuantity(8, 9)).toEqual(0);
   });
 
-  describe("the function to get a chocolate counter object", () => {
+  describe("should have a function to get a chocolate counter object and it", () => {
     it(`should create an object`, () => {
       expect(typeof calculator.getChocolateCounter).toBe("function");
       expect(calculator.getChocolateCounter.length).toEqual(0);
@@ -112,40 +112,43 @@ describe("The calculator module", () => {
       expect(allValuesZero).toBe(true);
     });
   });
-
-  it("should calculate the total number of chocolates based on the bonus packs", () => {
-    expect(typeof calculator.calculateBonusChocolates).toBe("function");
-    expect(calculator.calculateBonusChocolates.length).toEqual(2);
-    const bonuses = calculator.calculateBonusChocolates("strawberry", 2);
-    expect(bonuses.strawberry).toEqual(6);
+  
+  describe(`should calculate orders`, () => {
+    it("should calculate the total number of bonus chocolates based on the bonus packs", () => {
+      expect(typeof calculator.calculateBonusChocolates).toBe("function");
+      expect(calculator.calculateBonusChocolates.length).toEqual(2);
+      const bonuses = calculator.calculateBonusChocolates("strawberry", 2);
+      expect(bonuses.strawberry).toEqual(6);
+    });
+  
+    it(`should calculate a total number of chocolates, bonus and purchased`, () => {
+      expect(typeof calculator.calculateOrderWithBonus).toBe("function");
+      const bonusCounter = { strawberry: 5 };
+      const totalCount = calculator.calculateOrderWithBonus(
+        "strawberry",
+        2,
+        bonusCounter
+      );
+      
+      expect(totalCount.strawberry).toEqual(7);
+    });
+  
+    it(`should calculate all orders`, () => {
+      expect(typeof calculator.calculateAllOrders).toBe("function");
+      delete config.chocolateTypes.strawberry;
+      const orders = [
+        { type: "milk", cash: 12, price: 2, bonusRatio: 5 },
+        { type: "dark", cash: 13, price: 4, bonusRatio: 1 },
+        { type: "white", cash: 6, price: 2, bonusRatio: 2 }
+      ];
+      
+      const processed = calculator.calculateAllOrders(orders);
+      expect(processed.length).toEqual(3);
+      const firstOrder = processed[0];
+      expect(firstOrder.milk).toEqual(7);
+      expect(firstOrder.dark).toEqual(0);
+      expect(firstOrder.white).toEqual(0);
+    });
   });
 
-  it(`should calculate a total number of chocolates`, () => {
-    expect(typeof calculator.calculateOrderWithBonus).toBe("function");
-    const bonusCounter = { strawberry: 5 };
-    const totalCount = calculator.calculateOrderWithBonus(
-      "strawberry",
-      2,
-      bonusCounter
-    );
-    
-    expect(totalCount.strawberry).toEqual(7);
-  });
-
-  it(`should calculate all orders`, () => {
-    expect(typeof calculator.calculateAllOrders).toBe("function");
-    delete config.chocolateTypes.strawberry;
-    const orders = [
-      { type: "milk", cash: 12, price: 2, bonusRatio: 5 },
-      { type: "dark", cash: 13, price: 4, bonusRatio: 1 },
-      { type: "white", cash: 6, price: 2, bonusRatio: 2 }
-    ];
-    
-    const processed = calculator.calculateAllOrders(orders);
-    expect(processed.length).toEqual(3);
-    const firstOrder = processed[0];
-    expect(firstOrder.milk).toEqual(7);
-    expect(firstOrder.dark).toEqual(0);
-    expect(firstOrder.white).toEqual(0);
-  });
 });

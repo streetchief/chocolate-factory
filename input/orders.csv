@@ -4,3 +4,5 @@ type,cash,price,bonus_ratio
 "white",6,2,2
 "dark",300,1,2
 "white",300,1,2
+"white",300,-1,2
+"white",300,0,2

@@ -4,7 +4,6 @@ import {
     ChocolateCounts,
 } from "./index.d";
 
-// module.exports = function CalculatorFactory(config: CalculatorConfig): Calculator {
 export default function CalculatorFactory(config: CalculatorConfig): Calculator {
     if (!config) throw new TypeError(`CalculatorFactory config was undefined`);
     
