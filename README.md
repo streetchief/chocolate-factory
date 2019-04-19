@@ -38,7 +38,7 @@ Jest will compile and run the TypeScript files automatically via Babel.
 
 ## Notes/Optimizations
 - Parsing a CSV during testing might be excessively time consuming, especially with a larger sample.
-- XLSX supports streams if needed for future optimizations.
+- XLSX supports streams if needed for future optimizations; batching is also a possibility.
 - bonusPackQuantity and purchaseQuantity use the same operation, could be abstracted.
 
 ## Backlog
