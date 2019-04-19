@@ -22,9 +22,9 @@
     - could batch/stream order processing for safety
     
 ## Questions
-    - This "bonus pack" language could really stand to be claified.  Bonus packs are summed in final order.
+    - This "bonus pack" language could really stand to be clarified.  Bonus packs are summed in final order.
 
-## Psuedo initialzation code
+## Psuedo initialization code
     - load bonus pack rules
     - load valid chocolate types
     - load default file location
@@ -39,11 +39,11 @@
         - validate only one chocolate type
         - validate order price above zero
         - validate chocolate cost is above zero
-        - vaildate bonus ratio is above zero
+        - validate bonus ratio is above zero
         - calculate bonus
-            - calculate choclates purchased using order price and chocolate cost
+            - calculate chocolates purchased using order price and chocolate cost
             - store change?
-            - using ratio of chocoaltes to bonus_ratio, calculate if any bonus applies
+            - using ratio of chocolates to bonus_ratio, calculate if any bonus applies
             - if bonus, calculate bonus pack
     - output order to terminal
         
