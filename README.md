@@ -10,7 +10,7 @@ This module requires a version of NodeJS with es2015 support to be installed and
 2) `npm run build` to compile module.
 
 ### Run
-`npm start` to read an existing CSV in the `input` folder once the module has been build.
+`npm start` to read an existing CSV in the `input` folder once the module has been built.
 
 ### Test
 We support testing via Jest.  Run `npm test` to run the all existing test suites.
