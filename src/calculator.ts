@@ -18,7 +18,7 @@ export default function CalculatorFactory(config: CalculatorConfig): Calculator 
         isValidChocolateType: (type) => !!config.chocolateTypes[type],
         isUseableInt: (int) => Number.isSafeInteger(int) && int > 0,
         purchaseQuantity: (price, cost) => Math.floor(price / cost),
-        bonusPackQuantity: (choclates, ratio) => Math.floor(choclates / ratio),
+        bonusPackQuantity: (chocolates, ratio) => Math.floor(chocolates / ratio),
         calculateBonusChocolates: (type, packs) => {
             const bonusRule = config.bonusRules[type];
             return bonusRule(packs, calc.getChocolateCounter());
@@ -28,7 +28,7 @@ export default function CalculatorFactory(config: CalculatorConfig): Calculator 
             return bonusCounts;
         },
         calculateAllOrders: (orders) => {
-            if (!Array.isArray(orders) || orders.length === 0) return [];
+            if (!calc.haveOrders(orders)) return [];
             return orders.reduce((all, order) => {
                 if (
                     !calc.isValidChocolateType(order.type)
