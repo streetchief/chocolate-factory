@@ -1,5 +1,5 @@
 # Bobby's Chocolates (Stride Code Test)
-This is a solution to the Stride Coding Test.
+This is a solution to the Stride Coding Test for Bobby's Chocolate's.
 
 ## Requirements
 This module requires a version of NodeJS with es2015 support to be installed and available on the PATH, as well as NPM.
