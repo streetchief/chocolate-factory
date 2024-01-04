@@ -47,7 +47,6 @@ export default function CalculatorFactory(config: CalculatorConfig): Calculator 
                     bonusChocolates = calc.calculateBonusChocolates(order.type, bonusPacks);
                 }
                 
-                // FIXME: type error
                 all.push(calc.calculateOrderWithBonus(order.type, purchasedQuantity, bonusChocolates));
                 return all;
             }, []);
