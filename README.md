@@ -1,6 +1,6 @@
-# Bobby's Chocolates
+# Chocolate Store Calculator
 
-This is a toy app for Bobby's Chocolate's.
+This is a toy app for a Chocolate Store Calculator.
 
 ## Requirements
 
